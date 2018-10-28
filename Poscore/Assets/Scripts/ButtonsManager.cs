@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class ButtonsManager : MonoBehaviour
 {
 
@@ -48,6 +49,6 @@ public class ButtonsManager : MonoBehaviour
     // EventListener for click score button
     public void OnClickScoreButton(int id)
     {
-
+        // Call and move scene for input
     }
 }
