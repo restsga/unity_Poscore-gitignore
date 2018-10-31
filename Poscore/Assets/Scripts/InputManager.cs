@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class InputManager : MonoBehaviour {
 
     // Objects //
     private GameObject inputText;
 
-    // Constant //
+    // Constants //
     // The number of max digits
     private const int MAX_DIGITS = 4;
     // Null number for inputNumber
@@ -24,7 +25,7 @@ public class InputManager : MonoBehaviour {
         // Load NumberText as GameObject
         inputText= GameObject.Find("Canvas/NumberText");
 
-        //Initialize
+        // Initialize
         InitializeInputNumber();
     }
 
@@ -54,13 +55,50 @@ public class InputManager : MonoBehaviour {
 
     public void OnClickAddRemoveButton(bool add)
     {
+        // Check inputNumbers is not null
+        bool isNull = true;
+        for (int i = 0; i < inputNumbers.Length; i++)
+        {
+            if (inputNumbers[i] != NULL_FOR_INPUTNUMBER)
+            {
+                isNull = false;
+                break;
+            }
+        }
+        if (isNull)
+        {
+            return;
+        }
 
+        // Get id to input
+        int id= Statics.GetAndResetId();
+        // Get input number as int
+        int input = ChangeFromNumbersToInt();
+        // Add or remove score
+        if (add)
+        {
+            Statics.scores[id] += input;
+        }
+        else
+        {
+            Statics.scores[id] -= input;
+        }
+        // Call and move main scene
+        SceneManager.LoadScene("Main");
     }
 
 
     public void OnClickClearButton()
     {
         InitializeInputNumber();
+    }
+
+    public void OnClickQuitButton()
+    {
+        // Reset id to input
+        Statics.GetAndResetId();
+        // Call and move main scene
+        SceneManager.LoadScene("Main");
     }
 
     // Show input numbers
