@@ -70,19 +70,10 @@ public class InputManager : MonoBehaviour {
             return;
         }
 
-        // Get id to input
-        int id= Statics.GetAndResetId();
         // Get input number as int
         int input = ChangeFromNumbersToInt();
         // Add or remove score
-        if (add)
-        {
-            Statics.scores[id] += input;
-        }
-        else
-        {
-            Statics.scores[id] -= input;
-        }
+        Statics.AddOrRemoveScore(input, add);
         // Call and move main scene
         SceneManager.LoadScene("Main");
     }
@@ -96,7 +87,7 @@ public class InputManager : MonoBehaviour {
     public void OnClickQuitButton()
     {
         // Reset id to input
-        Statics.GetAndResetId();
+        Statics.ResetId();
         // Call and move main scene
         SceneManager.LoadScene("Main");
     }
