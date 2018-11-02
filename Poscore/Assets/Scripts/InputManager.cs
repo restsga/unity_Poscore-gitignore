@@ -18,6 +18,8 @@ public class InputManager : MonoBehaviour {
     // Variable //
     // Input datas
     private int[] inputNumbers = new int[MAX_DIGITS];
+    private float timer = 0f;
+    private bool firstPush = false;
 
     // Use this for initialization
     void Start()
@@ -30,8 +32,9 @@ public class InputManager : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update() {
-
+    void Update()
+    {
+        timer += Time.deltaTime;
     }
 
     public void OnClickNumberButton(int n)
@@ -90,6 +93,24 @@ public class InputManager : MonoBehaviour {
         Statics.ResetId();
         // Call and move main scene
         SceneManager.LoadScene("Main");
+    }
+
+    public void OnClickDropOutButton()
+    {
+        if (firstPush && timer <= 1f)
+        {
+            firstPush = false;
+
+            // Change inactive mode
+            Statics.ChangeInactiveMode();
+
+            OnClickQuitButton();
+        }
+        else
+        {
+            firstPush = true;
+            timer = 0f;
+        }
     }
 
     // Show input numbers

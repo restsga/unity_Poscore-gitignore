@@ -46,16 +46,20 @@ public class ButtonsManager : MonoBehaviour
         {
             // Prevent pass by reference
             int id = i;
-            // Create button
-            GameObject button = Instantiate(buttonPrefab, locations[id], Quaternion.Euler(0, 0, 0));
-            // Set Canvas as parent
-            button.transform.SetParent(canvas, false);
-            // Set button text
-            button.transform.GetComponentInChildren<Text>().text =
-                Statics.GetScore(id) + //"/" + Statics.maxScore +
-                Environment.NewLine + ranks[Statics.GetRank(id)];
-            // Set EventListener for click this button
-            button.transform.GetComponent<Button>().onClick.AddListener(() => OnClickScoreButton(id));
+
+            if (Statics.active[id])
+            {
+                // Create button
+                GameObject button = Instantiate(buttonPrefab, locations[id], Quaternion.Euler(0, 0, 0));
+                // Set Canvas as parent
+                button.transform.SetParent(canvas, false);
+                // Set button text
+                button.transform.GetComponentInChildren<Text>().text =
+                    Statics.GetScore(id) + //"/" + Statics.maxScore +
+                    Environment.NewLine + ranks[Statics.GetRank(id)];
+                // Set EventListener for click this button
+                button.transform.GetComponent<Button>().onClick.AddListener(() => OnClickScoreButton(id));
+            }
         }
     }
 
