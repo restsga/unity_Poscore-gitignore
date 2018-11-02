@@ -8,12 +8,16 @@ public class Statics : MonoBehaviour
 
     // Constants //
     private static int MAX_MEMBERS = 8;
-    private static int NULL_NUMBER_FOR_ID = -1;
+
+    private static int EDIT_INITIAL_SCORE = -1;
+    private static int EDIT_MAX_SCORE = -2;
+    private static int NULL_NUMBER_FOR_ID = -100;
 
     // Variable //
     private static int id = NULL_NUMBER_FOR_ID;
     private static bool initialized = false;
-    public static int maxScore = 1000;
+    private static int maxScore = 1000;
+    private static int initialScore = maxScore;
     private static int[] scores = new int[MAX_MEMBERS];
     public static bool ascending = false;
     private static int[] ranks = new int[MAX_MEMBERS];
@@ -39,9 +43,9 @@ public class Statics : MonoBehaviour
             return;
         }
 
-        for(int i = 0; i < MAX_MEMBERS; i++)
+        for (int i = 0; i < MAX_MEMBERS; i++)
         {
-            scores[i] = maxScore;
+            scores[i] = initialScore;
             ranks[i] = 0;
             active[i] = true;
         }
@@ -51,16 +55,32 @@ public class Statics : MonoBehaviour
 
     public static void AddOrRemoveScore(int amount, bool add)
     {
-        if (add)
+        if (id == EDIT_INITIAL_SCORE)
         {
-            scores[id] += amount;
+            initialScore = amount;
+
+            initialized = false;
+            Initialize();
+        }
+        else
+        if (id == EDIT_MAX_SCORE)
+        {
+            maxScore = amount;
         }
         else
         {
-            scores[id] -= amount;
+            if (add)
+            {
+                scores[id] += amount;
+            }
+            else
+            {
+                scores[id] -= amount;
+            }
+
+            CreateRanks();
         }
 
-        CreateRanks();
         ResetId();
     }
 
@@ -136,6 +156,11 @@ public class Statics : MonoBehaviour
         id = NULL_NUMBER_FOR_ID;
     }
 
+    public static bool ShouldCaluclation()
+    {
+        return id != EDIT_INITIAL_SCORE && id != EDIT_MAX_SCORE;
+    }
+
     public static int GetScore(int index)
     {
         return scores[index];
@@ -144,5 +169,10 @@ public class Statics : MonoBehaviour
     public static int GetRank(int index)
     {
         return ranks[index];
+    }
+
+    public static int GetMaxScore()
+    {
+        return maxScore;
     }
 }
