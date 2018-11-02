@@ -24,8 +24,20 @@ public class InputManager : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+        // Destroy unnecessary buttons
+        if (Statics.ShouldCaluclation())
+        {
+            Destroy(GameObject.Find("Canvas/OK"));
+        }
+        else
+        {
+            Destroy(GameObject.Find("Canvas/Add"));
+            Destroy(GameObject.Find("Canvas/Remove"));
+            Destroy(GameObject.Find("Canvas/DropOut"));
+        }
+
         // Load NumberText as GameObject
-        inputText= GameObject.Find("Canvas/NumberText");
+        inputText = GameObject.Find("Canvas/NumberText");
 
         // Initialize
         InitializeInputNumber();

@@ -55,7 +55,7 @@ public class ButtonsManager : MonoBehaviour
                 button.transform.SetParent(canvas, false);
                 // Set button text
                 button.transform.GetComponentInChildren<Text>().text =
-                    Statics.GetScore(id) + //"/" + Statics.maxScore +
+                    Statics.GetScore(id) + "/" + Statics.GetMaxScore() +
                     Environment.NewLine + ranks[Statics.GetRank(id)];
                 // Set EventListener for click this button
                 button.transform.GetComponent<Button>().onClick.AddListener(() => OnClickScoreButton(id));
