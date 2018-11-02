@@ -17,6 +17,7 @@ public class Statics : MonoBehaviour
     private static int[] scores = new int[MAX_MEMBERS];
     public static bool ascending = false;
     private static int[] ranks = new int[MAX_MEMBERS];
+    public static bool[] active = new bool[MAX_MEMBERS];
 
 
     // Use this for initialization
@@ -38,13 +39,11 @@ public class Statics : MonoBehaviour
             return;
         }
 
-        for(int i = 0; i < scores.Length; i++)
+        for(int i = 0; i < MAX_MEMBERS; i++)
         {
             scores[i] = maxScore;
-        }
-        for(int i = 0; i < ranks.Length; i++)
-        {
             ranks[i] = 0;
+            active[i] = true;
         }
 
         initialized = true;
@@ -65,6 +64,11 @@ public class Statics : MonoBehaviour
         ResetId();
     }
 
+    public static void ChangeInactiveMode()
+    {
+        active[id] = false;
+    }
+
     private static void CreateRanks()
     {
         // Copy scores
@@ -74,13 +78,8 @@ public class Statics : MonoBehaviour
             rankedScores[i] = scores[i];
         }
 
-        // Sort scores
-        Array.Sort(rankedScores);
-        if (ascending == false)
-        {
-            Array.Reverse(rankedScores);
-        }
-
+        Sort(ref rankedScores);
+        
         for (int r = rankedScores.Length - 1; 0 <= r; r--)
         {
             for (int i = 0; i < scores.Length; i++)
@@ -91,6 +90,33 @@ public class Statics : MonoBehaviour
                 }
             }
         }
+    }
+
+    private static void Sort(ref int[] array)
+    {
+        // Check active or inactive
+        int bottomValue;
+        if (ascending)
+        {
+            bottomValue = int.MaxValue;
+        }
+        else
+        {
+            bottomValue = int.MinValue;
+        }
+        for (int i = 0; i < MAX_MEMBERS; i++) {
+            if (active[i]==false) {
+                array[i] = bottomValue;
+            }
+        }
+
+        // Sort
+        Array.Sort(array);
+        if (ascending == false)
+        {
+            Array.Reverse(array);
+        }
+
     }
 
     // Getters and Setters //
