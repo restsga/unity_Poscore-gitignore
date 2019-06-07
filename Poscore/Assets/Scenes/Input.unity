@@ -1282,9 +1282,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Drop out
-
-    Note: Push twice within 1 second'
+  m_Text: "\u524A\u9664\n(\u30C0\u30D6\u30EB\u30BF\u30C3\u30D7)"
 --- !u!222 &682422847
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1628,7 +1626,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Remove
+  m_Text: "\u30FC"
 --- !u!222 &1257630650
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3133,7 +3131,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Add
+  m_Text: "\uFF0B"
 --- !u!222 &1832838120
 CanvasRenderer:
   m_ObjectHideFlags: 0
